@@ -23,7 +23,5 @@ RUN \
 
 COPY entrypoint.sh spamd.sh update-rules.sh /usr/local/bin/
 
-ADD https://raw.githubusercontent.com/apache/spamassassin/trunk/sample-nonspam.txt /sample-nonspam.txt
-
 VOLUME [ "/var/lib/spamassassin" ]
 CMD [ "/usr/local/bin/entrypoint.sh" ]
