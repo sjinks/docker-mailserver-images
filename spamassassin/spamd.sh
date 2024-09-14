@@ -5,23 +5,23 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ARGS=""
 
 if [ -n "${SPAMD_MIN_SPARE}" ]; then
-    ARGS="$ARGS --min-spare=${SPAMD_MIN_SPARE}"
+    ARGS="${ARGS} --min-spare=${SPAMD_MIN_SPARE}"
 fi
 
 if [ -n "${SPAMD_MAX_SPARE}" ]; then
-    ARGS="$ARGS --max-spare=${SPAMD_MAX_SPARE}"
+    ARGS="${ARGS} --max-spare=${SPAMD_MAX_SPARE}"
 fi
 
 if [ -n "${SPAMD_MIN_CHILDREN}" ]; then
-    ARGS="$ARGS --min-children=${SPAMD_MIN_CHILDREN}"
+    ARGS="${ARGS} --min-children=${SPAMD_MIN_CHILDREN}"
 fi
 
 if [ -n "${SPAMD_MAX_CHILDREN}" ]; then
-    ARGS="$ARGS --max-children=${SPAMD_MAX_CHILDREN}"
+    ARGS="${ARGS} --max-children=${SPAMD_MAX_CHILDREN}"
 fi
 
 if [ -n "${SPAMD_MAX_CONNECTIONS}" ]; then
-    ARGS="$ARGS --max-conn-per-child=${SPAMD_MAX_CONNECTIONS}"
+    ARGS="${ARGS} --max-conn-per-child=${SPAMD_MAX_CONNECTIONS}"
 fi
 
 if [ ! -e /var/lib/spamassassin/identity ]; then
