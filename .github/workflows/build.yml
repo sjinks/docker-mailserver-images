@@ -21,6 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         image:
+          - opendkim
           - postgrey
           - spamassassin
     steps:

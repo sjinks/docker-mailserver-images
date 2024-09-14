@@ -1,0 +1,27 @@
+#!/bin/sh
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+
+: "${DKIM_KEY_BITS:=2048}"
+: "${DKIM_RESTRICT_TO_EMAIL:=}"
+
+DOMAIN="${1?:'No domain provided'}"
+SELECTOR="${2?:'No selector provided'}"
+SUBDOMAINS="${3:-'yes'}"
+
+OPTS=""
+if [ "${SUBDOMAINS}" != "yes" ]; then
+    OPTS="${OPTS} --nosubdomains"
+fi
+
+if [ -n "${DKIM_RESTRICT_TO_EMAIL}" ]; then
+    OPTS="${OPTS} --restrict"
+fi
+
+# shellcheck disable=SC2086 # $OPTS should expand
+exec setpriv --reuid=opendkim --regid=opendkim --init-groups \
+    opendkim-genkey \
+        --directory=/etc/dkimkeys \
+        --domain="${DOMAIN}" \
+        --selector="${SELECTOR}" \
+        --bits="${DKIM_KEY_BITS}" ${OPTS}
