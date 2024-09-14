@@ -23,6 +23,7 @@ jobs:
         image:
           - opendkim
           - postgrey
+          - postsrsd
           - spamassassin
     steps:
       - name: Checkout
