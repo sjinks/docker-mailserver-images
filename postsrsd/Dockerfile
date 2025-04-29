@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim@sha256:1209d8fd77def86ceb6663deef7956481cc6c14a25e1e64daec12c0ceffcc19d
+FROM debian:bookworm-slim@sha256:4b50eb66f977b4062683ff434ef18ac191da862dbe966961bc11990cf5791a8d
 
 RUN apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && \
