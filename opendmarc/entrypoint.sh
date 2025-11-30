@@ -15,7 +15,7 @@ for file in /etc/opendmarc/conf.d/*.conf; do
     fi
 done
 
-/usr/sbin/opendmarc -c /etc/opendmarc.conf -P /run/opendmarc/opendmarc.pid -f &
+/usr/sbin/opendmarc -c /etc/opendmarc.conf -f &
 pid2=$!
 
 set +e
