@@ -1,0 +1,12 @@
+Canonicalization relaxed/simple
+Mode sv
+OversignHeaders From
+PidFile /run/opendkim/opendkim.pid
+Socket inet:8891
+Syslog yes
+TrustAnchorFile /usr/share/dns/root.key
+UserID opendkim:opendkim
+
+InternalHosts refile:/etc/dkimkeys/trustedhosts
+KeyTable file:/etc/dkimkeys/keytable
+SigningTable refile:/etc/dkimkeys/signingtable 
