@@ -3,7 +3,7 @@ FROM debian:trixie-slim@sha256:18764e98673c3baf1a6f8d960b5b5a1ec69092049522abac4
 RUN \
     apt-get update -q && \
     export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y --no-install-recommends busybox-syslogd dbconfig-no-thanks opendmarc && \
+    apt-get install -y --no-install-recommends busybox-syslogd dbconfig-no-thanks opendmarc publicsuffix && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     install -d -m 0755 -o opendmarc -g opendmarc /etc/opendmarc && \
