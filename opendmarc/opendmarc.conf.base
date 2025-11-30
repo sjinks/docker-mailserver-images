@@ -1,0 +1,5 @@
+AuthservID HOSTNAME
+Socket inet:8893
+Syslog Yes
+TrustedAuthservIDs HOSTNAME
+UserID opendmarc:opendmarc

@@ -22,6 +22,7 @@ jobs:
       matrix:
         image:
           - opendkim
+          - opendmarc
           - postgrey
           - postsrsd
           - spamassassin
