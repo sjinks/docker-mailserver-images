@@ -10,13 +10,15 @@ RUN \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
+    install -d -m 0755 -o opendkim -g opendkim /etc/opendkim && \
+    install -d -m 0755 -o opendkim -g opendkim /etc/opendkim/conf.d && \
     install -m 0644 -o opendkim -g opendkim /dev/null /etc/dkimkeys/keytable && \
     install -m 0644 -o opendkim -g opendkim /dev/null /etc/dkimkeys/signingtable && \
     install -m 0644 -o opendkim -g opendkim /dev/null /etc/dkimkeys/trustedhosts
 
-COPY opendkim.conf /etc/opendkim.conf
+COPY opendkim.conf.base /etc/opendkim/
 COPY entrypoint.sh genkey /usr/local/bin/
 
-VOLUME [ "/etc/dkimkeys" ]
-
+VOLUME [ "/etc/dkimkeys", "/etc/opendkim/conf.d" ]
+EXPOSE 8891
 CMD [ "/usr/local/bin/entrypoint.sh" ]
