@@ -18,6 +18,7 @@ done
 /usr/sbin/opendmarc -c /etc/opendmarc.conf -P /run/opendmarc/opendmarc.pid -f &
 pid2=$!
 
+set +e
 # shellcheck disable=SC2064
 trap "kill ${pid1} ${pid2}" INT TERM
 wait
