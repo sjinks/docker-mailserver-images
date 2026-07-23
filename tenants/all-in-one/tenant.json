@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "tenant": "all-in-one-sample",
+  "values": {
+    "IMAGE_PREFIX": "ghcr.io/sjinks/docker-mailserver-images",
+    "IMAGE_TAG": "latest"
+  },
+  "hosts": {
+    "mail-1": {
+      "services": ["acme", "amavis", "clamav", "dovecot", "freshclam", "mysql", "nginx", "opendkim", "opendmarc", "postfix", "postfixadmin", "postgrey", "postsrsd", "roundcube", "spamassassin", "spf-policy"],
+      "template": "hosts/mail-1.compose.yaml.tmpl"
+    }
+  }
+}

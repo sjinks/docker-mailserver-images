@@ -1,0 +1,19 @@
+# Mount this file as a Docker secret at /run/secrets/dovecot-sql.conf.
+sql_driver = mysql
+
+mysql sql {
+	host = mysql
+	port = 3306
+	dbname = postfixadmin
+	user = dovecot
+	password = CHANGE_ME
+}
+
+passdb sql {
+	default_password_scheme = MD5-CRYPT
+	query = SELECT username AS user, password FROM mailbox WHERE username = '%{user}' AND active = '1'
+}
+
+userdb sql {
+	query = SELECT '/var/vmail/%{user|domain}/%{user|username}' AS home, 150 AS uid, 8 AS gid, quota AS quota_storage_size FROM mailbox WHERE username = '%{user}' AND active = '1'
+}

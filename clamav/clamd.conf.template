@@ -1,0 +1,8 @@
+DatabaseDirectory /var/lib/clamav
+Foreground true
+LogTime true
+MaxFileSize @MAX_FILE_SIZE@
+MaxScanSize @MAX_SCAN_SIZE@
+TCPSocket @TCP_PORT@
+TCPAddr @TCP_ADDR@
+User clamav

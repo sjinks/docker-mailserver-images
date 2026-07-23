@@ -1,0 +1,15 @@
+name: {{TENANT_NAME}}-{{HOST_NAME}}
+services:
+  postfix:
+    image: {{IMAGE_PREFIX}}/postfix:{{IMAGE_TAG}}
+    restart: unless-stopped
+    volumes:
+      - ./config/postfix:/run/config/postfix:ro
+      - postfix-queue:/var/spool/postfix
+  amavis:
+    image: {{IMAGE_PREFIX}}/amavis:{{IMAGE_TAG}}
+    restart: unless-stopped
+    volumes:
+      - ./config/amavis:/run/config/amavis:ro
+volumes:
+  postfix-queue:

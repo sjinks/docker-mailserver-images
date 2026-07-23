@@ -4,6 +4,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ARGS=""
 
+: "${SPAMD_ALLOWED_IPS:=127.0.0.1}"
+
 if [ -n "${SPAMD_MIN_SPARE}" ]; then
     ARGS="${ARGS} --min-spare=${SPAMD_MIN_SPARE}"
 fi
@@ -35,7 +37,7 @@ exec spamd ${ARGS} \
     --username=debian-spamd \
     --groupname=debian-spamd \
     --listen=0.0.0.0:783 \
-    --allowed-ips=0.0.0.0/0 \
+    --allowed-ips="${SPAMD_ALLOWED_IPS}" \
     --helper-home-dir=/var/lib/spamassassin \
     --pidfile=/run/spamd.pid \
     --syslog=stderr \

@@ -1,0 +1,88 @@
+[newline]
+dovecot_config_version = 2.4.0
+dovecot_storage_version = 2.3.0
+
+auth_allow_cleartext = no
+auth_mechanisms = plain login
+first_valid_uid = @VMAIL_UID@
+listen = @LISTEN@
+mail_gid = @VMAIL_GROUP@
+mail_driver = maildir
+mail_home = /var/vmail/%d/%n
+mail_path = ~/Maildir
+mail_uid = @VMAIL_USER@
+protocols = imap pop3 lmtp sieve
+
+ssl = @TLS_MODE@
+
+ssl_server {
+  cert_file = @TLS_CERT@
+  key_file = @TLS_KEY@
+}
+
+!include @SQL_CONFIG@
+
+mail_plugins {
+  quota = yes
+}
+
+quota "User quota" {
+  driver = count
+}
+
+quota_status_nouser = DUNNO
+quota_status_overquota = 552 5.2.2 Mailbox is full
+quota_status_success = DUNNO
+
+protocol lmtp {
+  mail_plugins {
+    sieve = yes
+  }
+}
+
+sieve_script personal {
+  active_path = ~/.dovecot.sieve
+  driver = file
+  path = ~/sieve
+}
+
+sieve_script default {
+  driver = file
+  name = default
+  path = /var/lib/dovecot/sieve/default.sieve
+  type = default
+}
+
+service auth {
+  inet_listener auth {
+    port = @AUTH_PORT@
+  }
+}
+
+service dict {
+  unix_listener dict {
+    group = @VMAIL_GROUP@
+    mode = 0600
+    user = @VMAIL_USER@
+  }
+}
+
+service lmtp {
+  inet_listener lmtp {
+    port = @LMTP_PORT@
+  }
+}
+
+service managesieve-login {
+  inet_listener sieve {
+    port = 4190
+  }
+}
+
+service quota-status {
+  client_limit = 1
+  executable = quota-status -p postfix
+  inet_listener quota-status {
+    port = @QUOTA_PORT@
+  }
+}

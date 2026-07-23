@@ -1,0 +1,17 @@
+use strict;
+
+$mydomain = 'test.invalid';
+$myhostname = 'amavis.test.invalid';
+@inet_acl = qw( 127.0.0.1 172.16.0.0/12 );
+$inet_socket_bind = '0.0.0.0';
+$inet_socket_port = [10024];
+$forward_method = 'smtp:[postfix]:10025';
+$notify_method = $forward_method;
+
+@bypass_virus_checks_maps = (1);
+@bypass_spam_checks_maps = (1);
+$final_banned_destiny = D_PASS;
+$final_spam_destiny = D_PASS;
+$final_virus_destiny = D_PASS;
+
+1;

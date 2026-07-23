@@ -7,13 +7,13 @@ while true; do
     su debian-spamd -s /bin/sh -c 'sa-update' && R=0 || R=$?
     case "${R}" in
         0)
-        ;;
+            ;;
         1)
             exit 0
-        ;;
+            ;;
         *)
             exit "${R}"
-        ;;
+            ;;
     esac
 
     if [ -f /run/spamd.pid ]; then

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "tenant": "example-mail",
+  "values": {
+    "IMAGE_PREFIX": "ghcr.io/sjinks/docker-mailserver-images",
+    "IMAGE_TAG": "latest",
+    "MAIL_DOMAIN": "example.test",
+    "POSTFIX_HOST": "mx-1.mesh.example.test",
+    "DOVECOT_HOST": "mailstore-1.mesh.example.test"
+  },
+  "hosts": {
+    "mx-1": {
+      "services": ["postfix", "amavis", "spf-policy", "postgrey", "postsrsd", "opendkim", "opendmarc"],
+      "template": "hosts/mx-1.compose.yaml.tmpl"
+    },
+    "mailstore-1": {
+      "services": ["dovecot", "mysql"],
+      "template": "hosts/mailstore-1.compose.yaml.tmpl"
+    }
+  }
+}

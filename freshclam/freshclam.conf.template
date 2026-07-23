@@ -1,0 +1,4 @@
+Checks @CHECKS@
+DatabaseDirectory /var/lib/clamav
+DatabaseMirror @MIRROR@
+LogTime true

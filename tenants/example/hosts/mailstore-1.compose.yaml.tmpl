@@ -1,0 +1,29 @@
+name: {{TENANT_NAME}}-{{HOST_NAME}}
+services:
+  dovecot:
+    image: {{IMAGE_PREFIX}}/dovecot:{{IMAGE_TAG}}
+    restart: unless-stopped
+    secrets:
+      - dovecot-sql
+      - tls-crt
+      - tls-key
+    volumes:
+      - maildir:/var/vmail
+      - dovecot-state:/var/lib/dovecot
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    secrets:
+      - mysql-root-password
+volumes:
+  dovecot-state:
+  maildir:
+secrets:
+  dovecot-sql:
+    file: ./secrets/dovecot-sql.conf
+  mysql-root-password:
+    file: ./secrets/mysql-root-password
+  tls-crt:
+    file: ./secrets/tls.crt
+  tls-key:
+    file: ./secrets/tls.key

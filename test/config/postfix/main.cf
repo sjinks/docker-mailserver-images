@@ -1,0 +1,16 @@
+compatibility_level = 3.6
+content_filter = amavis:[amavis]:10024
+inet_interfaces = all
+inet_protocols = ipv4
+mydestination =
+mydomain = test.invalid
+myhostname = postfix.test.invalid
+myorigin = $mydomain
+mynetworks = 127.0.0.0/8 172.16.0.0/12
+maillog_file = /dev/stdout
+smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
+smtpd_relay_restrictions = permit_mynetworks, reject_unauth_destination
+smtpd_peername_lookup = no
+virtual_mailbox_domains = regexp:/etc/postfix/virtual_domains
+virtual_mailbox_maps = regexp:/etc/postfix/virtual_mailbox
+virtual_transport = lmtp:inet:dovecot:24

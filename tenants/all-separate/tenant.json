@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "tenant": "all-separate-sample",
+  "values": {},
+  "hosts": {
+    "acme-1": {"services": ["acme"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/acme:latest", "SERVICE": "acme"}},
+    "amavis-1": {"services": ["amavis"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/amavis:latest", "SERVICE": "amavis"}},
+    "clamav-1": {"services": ["clamav"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/clamav:latest", "SERVICE": "clamav"}},
+    "dovecot-1": {"services": ["dovecot"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/dovecot:latest", "SERVICE": "dovecot"}},
+    "freshclam-1": {"services": ["freshclam"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/freshclam:latest", "SERVICE": "freshclam"}},
+    "mysql-1": {"services": ["mysql"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "mysql:8.4", "SERVICE": "mysql"}},
+    "nginx-1": {"services": ["nginx"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/nginx:latest", "SERVICE": "nginx"}},
+    "opendkim-1": {"services": ["opendkim"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/opendkim:latest", "SERVICE": "opendkim"}},
+    "opendmarc-1": {"services": ["opendmarc"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/opendmarc:latest", "SERVICE": "opendmarc"}},
+    "postfix-1": {"services": ["postfix"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/postfix:latest", "SERVICE": "postfix"}},
+    "postfixadmin-1": {"services": ["postfixadmin"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/postfixadmin:latest", "SERVICE": "postfixadmin"}},
+    "postgrey-1": {"services": ["postgrey"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/postgrey:latest", "SERVICE": "postgrey"}},
+    "postsrsd-1": {"services": ["postsrsd"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/postsrsd:latest", "SERVICE": "postsrsd"}},
+    "roundcube-1": {"services": ["roundcube"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/roundcube:latest", "SERVICE": "roundcube"}},
+    "spamassassin-1": {"services": ["spamassassin"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/spamassassin:latest", "SERVICE": "spamassassin"}},
+    "spf-policy-1": {"services": ["spf-policy"], "template": "hosts/service.compose.yaml.tmpl", "values": {"IMAGE": "ghcr.io/sjinks/docker-mailserver-images/spf-policy:latest", "SERVICE": "spf-policy"}}
+  }
+}

@@ -1,0 +1,149 @@
+name: docker-mailserver-images
+
+services:
+  acme:
+    build: ./acme
+    profiles: [acme]
+    volumes:
+      - acme-config:/etc/letsencrypt
+      - acme-data:/var/lib/letsencrypt
+      - acme-logs:/var/log/letsencrypt
+      - acme-webroot:/var/www/acme
+
+  amavis:
+    build: ./amavis
+    depends_on:
+      postfix:
+        condition: service_started
+    profiles: [mail]
+    volumes:
+      - ./test/config/amavis:/run/config/amavis:ro
+
+  clamav:
+    build: ./clamav
+    depends_on:
+      freshclam:
+        condition: service_started
+    profiles: [dependencies]
+    volumes:
+      - clamav-database:/var/lib/clamav:ro
+
+  dovecot:
+    build: ./dovecot
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DOVECOT_TLS_MODE: "no"
+    profiles: [mail]
+    volumes:
+      - ./test/config/dovecot-sql.conf.ext:/run/secrets/dovecot-sql.conf:ro
+      - ./test/secrets/tls.crt:/run/secrets/tls.crt:ro
+      - ./test/secrets/tls.key:/run/secrets/tls.key:ro
+      - dovecot-state:/var/lib/dovecot
+      - vmail:/var/vmail
+
+  freshclam:
+    build: ./freshclam
+    profiles: [dependencies]
+    volumes:
+      - clamav-database:/var/lib/clamav
+
+  mysql:
+    environment:
+      MYSQL_DATABASE: postfixadmin
+      MYSQL_PASSWORD: local-only
+      MYSQL_ROOT_PASSWORD: local-only-root
+      MYSQL_USER: dovecot
+    healthcheck:
+      interval: 5s
+      retries: 12
+      start_period: 10s
+      test: [CMD-SHELL, mysqladmin ping -h localhost -plocal-only-root]
+      timeout: 3s
+    image: mysql:8.4
+    profiles: [mail, apps]
+    volumes:
+      - ./test/mysql/init.sql:/docker-entrypoint-initdb.d/01-mailbox.sql:ro
+      - mysql-data:/var/lib/mysql
+
+  nginx:
+    build: ./nginx
+    profiles: [web]
+    volumes:
+      - ./test/config/nginx:/run/config/nginx:ro
+      - acme-webroot:/var/www/acme:ro
+
+  postfix:
+    build: ./postfix
+    depends_on:
+      dovecot:
+        condition: service_started
+    profiles: [mail]
+    volumes:
+      - ./test/config/postfix:/run/config/postfix:ro
+      - postfix-queue:/var/spool/postfix
+
+  postfixadmin:
+    build: ./postfixadmin
+    depends_on:
+      mysql:
+        condition: service_healthy
+    profiles: [apps]
+    volumes:
+      - ./test/config/postfixadmin:/run/config/postfixadmin:ro
+
+  opendkim:
+    build: ./opendkim
+    profiles: [dependencies]
+
+  opendmarc:
+    build: ./opendmarc
+    profiles: [dependencies]
+
+  postgrey:
+    build: ./postgrey
+    profiles: [dependencies]
+    volumes:
+      - postgrey-data:/var/lib/postgrey
+
+  postsrsd:
+    build: ./postsrsd
+    environment:
+      SRS_DOMAIN: ${SRS_DOMAIN:-srs.test.invalid}
+    profiles: [dependencies]
+    volumes:
+      - postsrsd-data:/var/lib/postsrsd
+
+  spamassassin:
+    build: ./spamassassin
+    profiles: [dependencies]
+    volumes:
+      - spamassassin-data:/var/lib/spamassassin
+
+  spf-policy:
+    build: ./spf-policy
+    profiles: [dependencies]
+
+  roundcube:
+    build: ./roundcube
+    depends_on:
+      mysql:
+        condition: service_healthy
+    profiles: [apps]
+    volumes:
+      - ./test/config/roundcube:/run/config/roundcube:ro
+
+volumes:
+  acme-config:
+  acme-data:
+  acme-logs:
+  acme-webroot:
+  clamav-database:
+  dovecot-state:
+  mysql-data:
+  postfix-queue:
+  postgrey-data:
+  postsrsd-data:
+  spamassassin-data:
+  vmail:

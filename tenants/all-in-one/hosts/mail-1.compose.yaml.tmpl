@@ -1,0 +1,18 @@
+name: {{TENANT_NAME}}-{{HOST_NAME}}
+services:
+  acme: {image: "{{IMAGE_PREFIX}}/acme:{{IMAGE_TAG}}"}
+  amavis: {image: "{{IMAGE_PREFIX}}/amavis:{{IMAGE_TAG}}"}
+  clamav: {image: "{{IMAGE_PREFIX}}/clamav:{{IMAGE_TAG}}"}
+  dovecot: {image: "{{IMAGE_PREFIX}}/dovecot:{{IMAGE_TAG}}"}
+  freshclam: {image: "{{IMAGE_PREFIX}}/freshclam:{{IMAGE_TAG}}"}
+  mysql: {image: "mysql:8.4"}
+  nginx: {image: "{{IMAGE_PREFIX}}/nginx:{{IMAGE_TAG}}"}
+  opendkim: {image: "{{IMAGE_PREFIX}}/opendkim:{{IMAGE_TAG}}"}
+  opendmarc: {image: "{{IMAGE_PREFIX}}/opendmarc:{{IMAGE_TAG}}"}
+  postfix: {image: "{{IMAGE_PREFIX}}/postfix:{{IMAGE_TAG}}"}
+  postfixadmin: {image: "{{IMAGE_PREFIX}}/postfixadmin:{{IMAGE_TAG}}"}
+  postgrey: {image: "{{IMAGE_PREFIX}}/postgrey:{{IMAGE_TAG}}"}
+  postsrsd: {image: "{{IMAGE_PREFIX}}/postsrsd:{{IMAGE_TAG}}"}
+  roundcube: {image: "{{IMAGE_PREFIX}}/roundcube:{{IMAGE_TAG}}"}
+  spamassassin: {image: "{{IMAGE_PREFIX}}/spamassassin:{{IMAGE_TAG}}"}
+  spf-policy: {image: "{{IMAGE_PREFIX}}/spf-policy:{{IMAGE_TAG}}"}
